@@ -74,8 +74,7 @@ export const App = () => {
   };
 
   const incrementFeedback = event => {
-    const nameBtn = event;
-    switch (nameBtn) {
+    switch (event.target.textContent) {
       case 'good':
         setGood(good + 1);
         break;
@@ -85,11 +84,13 @@ export const App = () => {
       case 'bad':
         setBad(bad + 1);
         break;
-      default: 
-      return;
+      default:
+        return;
     }
   };
 
+  const countTotal = countTotalFeedback();
+  
   return (
     <div
       style={{
@@ -108,14 +109,14 @@ export const App = () => {
         />
       </Section>
       <Section title="Statistics">
-        {countTotalFeedback() === 0 ? (
+        {countTotal === 0 ? (
           <Notification message="There is no feedback :( " />
         ) : (
           <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
-            total={countTotalFeedback()}
+            total={countTotal}
             positivePercentage={countPositiveFeedbackPercentage()}
           />
         )}
